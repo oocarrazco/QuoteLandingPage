@@ -11,21 +11,22 @@ export const environment = {
       {
         id: 1,
         type: 'radio',
-        question: 'Question 1',
+        question: 'Which services you are inerested in?',
         answers: [
-          { id: 1, text: 'answer 1' },
-          { id: 2, text: 'answer 2' },
-          { id: 3, text: 'answer 3' },
+          { id: 1, text: 'Web applications (backend and frontend)' },
+          { id: 2, text: 'Microservices' },
+          { id: 3, text: 'Kubernetes clusters and Docker clusters' },
         ],
       },
       {
         id: 2,
         type: 'check',
-        question: 'Question 2',
+        question: 'Which Hosting Plans would you like to subscribe to?',
         answers: [
-          { id: 1, text: 'answer 1' },
-          { id: 2, text: 'answer 2' },
-          { id: 3, text: 'answer 3' },
+          { id: 1, text: 'Basic Plan (For basic web applications)' },
+          { id: 2, text: 'Professional Plan (For high-traffic web applications)' },
+          { id: 3, text: 'Enterprise Plan (For critical web applications)' },
+          { id: 4, text: 'Customized (For custom web applications)' },
         ],
       },
       {
@@ -43,9 +44,9 @@ export const environment = {
         type: 'check',
         question: 'Question 4',
         answers: [
-          { id: 1, text: 'answer 1' },
-          { id: 2, text: 'answer 2' },
-          { id: 3, text: 'answer 3' },
+          { id: 1, text: 'answer 41' },
+          { id: 2, text: 'answer 42' },
+          { id: 3, text: 'answer 43' },
         ],
       },
       // {

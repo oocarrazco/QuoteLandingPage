@@ -1,16 +1,26 @@
-div.main img{
-    margin-left: 20px;
-    margin-bottom: -20px; 
+div.main img {
+  margin-left: 20px;
+  margin-bottom: -20px;
 }
 
 nav::after {
-    background-color: #05a3ff;
-    bottom: 0;
-    content: "";
-    height: 2px;
-    left: 0;
-    margin: -25px auto;
-    position: absolute;
-    right: 0;
-    width: 50px;
+  background-color: #05a3ff;
+  bottom: 0;
+  content: "";
+  height: 2px;
+  left: 0;
+  margin: -25px auto;
+  position: absolute;
+  right: 0;
+  width: 50px;
+}
+
+.text {
+  color: rgb(128, 134, 221);
+  font-size: 11px;
+  margin: 0px;
+}
+
+.desc{
+    color: red
 }

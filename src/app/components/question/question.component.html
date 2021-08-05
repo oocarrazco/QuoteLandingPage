@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-dark">
   <div class="container">
     <a class="navbar-brand" href="#">
-      <img src="../../../assets/img/logo2.png" alt="" width="" height="">
+      <img src="../../../assets/img/logo2.png" alt="" width="" height="" />
     </a>
   </div>
 </nav>
@@ -9,7 +9,7 @@
   <div class="container mt-5">
     <div class="container card">
       <div class="card-body">
-        <form>
+        <form (ngSubmit)="sendForm()" [formGroup]="rForm">
           <!-- text -->
           <div class="container">
             <section class="row_1">
@@ -17,23 +17,17 @@
                 <div class="col">
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
-                      >First name<span style="color: red">*</span></label
+                      >First name<span class="desc">*</span></label
                     >
-                    <p
-                      style="
-                        color: rgb(128, 134, 221);
-                        font-size: 11px;
-                        margin: 0px;
-                      "
-                    >
+                    <p class="text">
                       Enter your first name
                     </p>
                     <input
                       type="text"
                       class="form-control border bg-light"
-                      id="firstName"
-                      [(ngModel)]="question.text"
-                      name="question"
+                      name="firstName"
+                      formControlName="firstName"
+                      [class.is-invalid]="firstNameInvalid"
                     />
                   </div>
                 </div>
@@ -41,21 +35,17 @@
                 <div class="col">
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
-                      >Last name<span style="color: red">*</span></label
+                      >Last name<span class="desc">*</span></label
                     >
-                    <p
-                      style="
-                        color: rgb(128, 134, 221);
-                        font-size: 11px;
-                        margin: 0px;
-                      "
-                    >
+                    <p class="text">
                       Enter your last name
                     </p>
                     <input
                       type="text"
                       class="form-control border bg-light"
-                      id="lastName"
+                      name="lastName"
+                      formControlName="lastName"
+                      [class.is-invalid]="lastNameInvalid"
                     />
                   </div>
                 </div>
@@ -67,25 +57,18 @@
                 <div class="col">
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
-                      >Number of Products<span style="color: red"
-                        >*</span
+                      >Number of Products<span class="desc">*</span
                       ></label
                     >
-                    <p
-                      style="
-                        color: rgb(128, 134, 221);
-                        font-size: 11px;
-                        margin: 0px;
-                      "
-                    >
+                    <p class="text">
                       Estimate the number of products being developed
                     </p>
                     <input
                       type="text"
                       class="form-control border bg-light"
-                      id="numberProducts"
-                      [(ngModel)]="question.text"
-                      name="question"
+                      name="numberProducts"
+                      formControlName="numberProducts"
+                      [class.is-invalid]="numberProductsInvalid"
                     />
                   </div>
                 </div>
@@ -93,21 +76,17 @@
                 <div class="col">
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
-                      >Corporate email<span style="color: red">*</span></label
+                      >Corporate email<span class="desc">*</span></label
                     >
-                    <p
-                      style="
-                        color: rgb(128, 134, 221);
-                        font-size: 11px;
-                        margin: 0px;
-                      "
-                    >
+                    <p class="text">
                       Enter an email to reach you
                     </p>
                     <input
                       type="text"
                       class="form-control border bg-light"
-                      id="email"
+                      name="email"
+                      formControlName="email"
+                      [class.is-invalid]="emailInvalid"
                     />
                   </div>
                 </div>
@@ -120,21 +99,16 @@
                     <label for="exampleFormControlInput1" class="form-label"
                       >Comments</label
                     >
-                    <p
-                      style="
-                        color: rgb(128, 134, 221);
-                        font-size: 11px;
-                        margin: 0px;
-                      "
-                    >
+                    <p class="text">
                       Please share additional information about your project so
                       that our team can provide you with a close estimate
                     </p>
                     <div class="form-floating">
                       <textarea
+                        name="comments"
                         class="form-control border bg-light"
                         placeholder="Leave a comment here"
-                        id="floatingTextarea"
+                        formControlName="comments"
                       ></textarea>
                       <label for="floatingTextarea">Comments</label>
                     </div>
@@ -145,55 +119,100 @@
           </div>
           <!-- end text -->
 
-          <div *ngFor="let quest of questions" class="mb-3">
-            <!-- radio -->
-            <div *ngIf="quest.type == 'radio'" class="card-body">
-              <p class="form-control">{{ quest.question }}</p>
+          <!------------------ radio question 1 ------------------------>
+          <div class="card-body">
+            <p class="form-control">{{ questionsArray[0].question }}</p>
 
-              <div
-                class="form-check"
-                *ngFor="let answer of quest.answers; let i = index"
-              >
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="{{ quest.id }}"
-                  id="{{ quest.id }}{{ answer.id }}"
-                />
-                <label class="form-check-label" for="{{ quest.id }}">
-                  {{ answer.text }}
-                </label>
-              </div>
-              <!-- end radio -->
-            </div>
+            <div
+              class="form-check"
+              *ngFor="let answerQuest of radioQ1; let i = index"
+            >
+              <input
+                type="radio"
+                class="form-check-input"
+                name="radioQuestion1"
+                formControlName="radioQuestion1"
+                [value]="answerQuest.text"
+              />
 
-            <!-- checkbox -->
-            <div *ngIf="quest.type == 'check'" class="card-body">
-              <p class="form-control">{{ quest.question }}</p>
-              <div
-                *ngFor="let answer of quest.answers; let i = index"
-                class="form-check form-switch"
-              >
-                <input
-                  class="form-check-input"
-                  type="checkbox"
-                  name="customCheck{{ i + 1 }}"
-                  id="{{ quest.id }}{{ answer.id }}"
-                />
-                <label
-                  class="form-check-label"
-                  for="{{ quest.id }}{{ answer.id }}"
-                >
-                  {{ answer.text }}
-                </label>
-              </div>
+              <label class="form-check-label">
+                {{ answerQuest.text }}
+              </label>
             </div>
-            <!-- end checkbox -->
           </div>
+          <!--/////////////////// end radio question 1 //////////////////-->
+
+          <!------------------ check question 2 ------------------------>
+          <div class="card-body">
+            <p class="form-control">{{ questionsArray[1].question }}</p>
+            <div
+              class="form-check form-switch"
+              *ngFor="
+                let answerCheck of getCheckQuestion2Array.controls;
+                let i = index"
+              formArrayName="checkQuestion2"
+            >
+              <input
+                class="form-check-input"
+                type="checkbox"                
+                [formControlName]="i"
+                [value]="checkQ2[i].text"
+                />
+                <label class="form-check-label">
+                  {{ checkQ2[i].text }}
+                </label>
+              </div>
+            </div>
+          <!--/////////////////// end check question 2 //////////////////-->
+
+          <!------------------ radio question 3 ------------------------>
+          <div class="card-body">
+            <p class="form-control">{{ questionsArray[2].question }}</p>
+
+            <div
+              class="form-check"
+              *ngFor="let answerQuest of radioQ3; let i = index"
+            >
+              <input
+                type="radio"
+                class="form-check-input"
+                name="radioQuestion3"
+                formControlName="radioQuestion3"
+                [value]="answerQuest.text"
+              />
+
+              <label class="form-check-label">
+                {{ answerQuest.text }}
+              </label>
+            </div>
+          </div>
+          <!--////////////////////// end radio question 3 ////////////////////-->
+
+          <!------------------ check question 4 ------------------------>
+          <div class="card-body">
+            <p class="form-control">{{ questionsArray[3].question }}</p>
+            <div
+              class="form-check form-switch"
+              *ngFor="
+                let answerCheck of getCheckQuestion4Array.controls;
+                let i = index
+              "
+              formArrayName="checkQuestion4"
+            >
+              <input
+                class="form-check-input"
+                type="checkbox"
+                [formControlName]="i"
+              />
+              <label class="form-check-label">
+                {{ checkQ4[i].text }}
+              </label>
+            </div>
+          </div>
+          <!--/////////////////// end check question 4 //////////////////-->
+
+          <button type="submit" class="btn btn-primary m-4">Submit</button>
         </form>
-        <button (click)="sendForm(question)" class="btn btn-primary m-4">
-          Submit
-        </button>
       </div>
     </div>
   </div>
