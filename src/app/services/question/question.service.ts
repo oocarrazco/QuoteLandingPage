@@ -11,13 +11,12 @@ export class QuestionService {
     email: '',
     numberProducts: '',
     comments: '',
-    radioQuestion1: '',
-    checkQuestion2: [],
-    radioQuestion3: '',
-    checkQuestion4: [],
+    checkServices: [],
+    checkHostingPlans: [],
   };
-  answersQ2 = environment.questions.questionArray[1].answers.map(x => x.text);
-  answersQ4 = environment.questions.questionArray[3].answers.map(x => x.text);
+  
+  answersServices = environment.questions.questionArray[0].answers.map(x => x.text);
+  answersHostingPlans = environment.questions.questionArray[1].answers.map(x => x.text);
 
   constructor(private http: HttpClient) {}
 
@@ -25,27 +24,24 @@ export class QuestionService {
 
     this.dataObj.captchaToken = token;
     let data = Object.assign(this.dataObj, formData);
-    data.checkQuestion2 = this.getQ2Answers(data.checkQuestion2);
-    data.checkQuestion4 = this.getQ4Answers(data.checkQuestion4);
-
-        console.log(data);
-        //console.log(this.getQ2Answers(data.checkQuestion2));
+    data.services = this.getServicesAnswers(data.services);
+    data.hostingPlans = this.getHostingPlansAnswers(data.hostingPlans);
 
     this.http
-      .post('https://localhost:44381/v1/quote', data)
+      .post(environment.apiURl, data)
       .subscribe((res) => {
       });
   }
 
-  getQ2Answers(cbBoolAnswers){
+  getServicesAnswers(cbBoolAnswers){
 
     return cbBoolAnswers.reduce((acc, curr, index) => 
-      acc = curr ? acc + `\n\t${this.answersQ2[index]}` : acc,"");
+      acc = curr ? acc + `\n\t${this.answersServices[index]}` : acc,"");
   }
 
-  getQ4Answers(cbBoolAnswers){
+  getHostingPlansAnswers(cbBoolAnswers){
 
     return cbBoolAnswers.reduce((acc, curr, index) => 
-      acc = curr ? acc + `\n\t${this.answersQ4[index]}` : acc,"");
+      acc = curr ? acc + `\n\t${this.answersHostingPlans[index]}` : acc,"");
   }
 }
